@@ -4,6 +4,7 @@ import static com.thanhquang.sourcebase.constant.CommonConstant.*;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtUtils {
 
-    private JwtUtils() {}
+
+    private JwtUtils() {
+    }
+
+    static {
+        log.info("SECRET_KEY - GENERATE  {}", Base64.getEncoder().encodeToString(CommonConstant.SECRET_KEY.getEncoded()));
+    }
 
     private static final JwtParser JWT_PARSER =
             Jwts.parser().verifyWith(CommonConstant.SECRET_KEY).build();
