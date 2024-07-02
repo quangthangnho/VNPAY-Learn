@@ -1,7 +1,5 @@
 package com.thanhquang.sourcebase.services.impl;
 
-import java.util.Set;
-
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,10 +20,7 @@ import com.thanhquang.sourcebase.exceptions.error_code.impl.AuthenticationErrors
 import com.thanhquang.sourcebase.exceptions.error_code.impl.UserErrors;
 import com.thanhquang.sourcebase.mapper.AuthMapper;
 import com.thanhquang.sourcebase.mapper.UserMapper;
-import com.thanhquang.sourcebase.services.AuthService;
-import com.thanhquang.sourcebase.services.RefreshTokenService;
-import com.thanhquang.sourcebase.services.RoleService;
-import com.thanhquang.sourcebase.services.UserService;
+import com.thanhquang.sourcebase.services.*;
 import com.thanhquang.sourcebase.utils.JwtUtils;
 
 @Service
@@ -37,18 +32,21 @@ public class AuthServiceImpl implements AuthService {
     private final RefreshTokenService refreshTokenService;
 
     private final UserService userService;
+    private final UserRoleService userRoleService;
 
     public AuthServiceImpl(
             RoleService roleService,
             PasswordEncoder passwordEncoder,
             AuthenticationProvider authenticationProvider,
             RefreshTokenService refreshTokenService,
-            UserService userService) {
+            UserService userService,
+            UserRoleService userRoleService) {
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationProvider = authenticationProvider;
         this.refreshTokenService = refreshTokenService;
         this.userService = userService;
+        this.userRoleService = userRoleService;
     }
 
     @Transactional
@@ -64,10 +62,10 @@ public class AuthServiceImpl implements AuthService {
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setStatus(UserStatus.ACTIVE);
 
-        UserRoleEntity userRole =
-                UserRoleEntity.builder().user(user).role(getDefaultRole()).build();
-        user.setUserRoles(Set.of(userRole));
-        return UserMapper.INSTANCE.toUserDto(userService.save(user));
+        user = userService.save(user);
+        userRoleService.save(
+                UserRoleEntity.builder().role(getDefaultRole()).user(user).build());
+        return UserMapper.INSTANCE.toUserDto(userService.findById(user.getId()));
     }
 
     @Override

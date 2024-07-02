@@ -54,7 +54,7 @@ public class SecurityConfiguration {
 
         http.authorizeHttpRequests(request -> request.requestMatchers(AUTH_WHITELIST)
                 .permitAll()
-                .requestMatchers("/api/v1/user/**")
+                .requestMatchers("/api/v1/user/**", "/api/v1/orders/**")
                 .hasAnyAuthority(Roles.USER.name(), Roles.ADMIN.name())
                 .requestMatchers("/api/v1/admin/**")
                 .hasAuthority(Roles.ADMIN.name())

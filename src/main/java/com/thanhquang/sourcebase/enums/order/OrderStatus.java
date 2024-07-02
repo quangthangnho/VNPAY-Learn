@@ -1,4 +1,4 @@
-package com.thanhquang.sourcebase.constant.order;
+package com.thanhquang.sourcebase.enums.order;
 
 public enum OrderStatus {
     PENDING,

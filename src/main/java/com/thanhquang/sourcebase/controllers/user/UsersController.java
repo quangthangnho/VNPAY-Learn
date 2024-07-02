@@ -14,11 +14,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("api/v1/users")
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Users management", description = "Users management API")
-public class UserController {
+public class UsersController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UsersController(UserService userService) {
         this.userService = userService;
     }
 

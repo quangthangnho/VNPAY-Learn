@@ -1,4 +1,4 @@
-package com.thanhquang.sourcebase.constant.payment;
+package com.thanhquang.sourcebase.enums.payment;
 
 public enum PaymentStatus {
     PENDING,

@@ -1,12 +1,16 @@
 package com.thanhquang.sourcebase.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.*;
 
-import com.thanhquang.sourcebase.constant.payment.PaymentMethod;
-import com.thanhquang.sourcebase.constant.payment.PaymentStatus;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.thanhquang.sourcebase.entities.base.BaseEntityAudit;
+import com.thanhquang.sourcebase.enums.payment.PaymentMethod;
+import com.thanhquang.sourcebase.enums.payment.PaymentStatus;
 
 import lombok.*;
 
@@ -23,11 +27,13 @@ public class PaymentEntity extends BaseEntityAudit implements Serializable {
     private Long amount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "col_payment_method", nullable = false)
+    @Column(name = "col_payment_method", nullable = false, columnDefinition = "enum_payment_method")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "col_payment_status", nullable = false)
+    @Column(name = "col_payment_status", nullable = false, columnDefinition = "enum_payment_status")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private PaymentStatus paymentStatus;
 
     @Column(name = "col_transaction_id", nullable = false, unique = true)
@@ -36,17 +42,26 @@ public class PaymentEntity extends BaseEntityAudit implements Serializable {
     @Column(name = "col_payment_code", unique = true, nullable = false)
     private String paymentCode;
 
-    @Column(name = "col_user_id", nullable = false)
-    private Integer userId;
-
     @ManyToOne
-    @JoinColumn(name = "col_user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private UserEntity user;
 
-    @Column(name = "col_order_id", nullable = false)
-    private Integer orderId;
-
     @ManyToOne
-    @JoinColumn(name = "col_order_id", referencedColumnName = "id", insertable = false, updatable = false)
     private OrderEntity order;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PaymentEntity that = (PaymentEntity) o;
+        return Objects.equals(this.getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 }

@@ -14,5 +14,8 @@ public interface AuthMapper {
 
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "userRoles", ignore = true)
+    @Mapping(target = "payments", ignore = true)
+    @Mapping(target = "orders", ignore = true)
+    @Mapping(target = "refreshToken", ignore = true)
     UserEntity toUserEntityRegister(RegisterDto registerDto);
 }

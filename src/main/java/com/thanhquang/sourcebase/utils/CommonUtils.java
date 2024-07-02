@@ -1,6 +1,7 @@
 package com.thanhquang.sourcebase.utils;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,5 +18,10 @@ public class CommonUtils {
             return Optional.of(userdetailsimpl);
         }
         return Optional.empty();
+    }
+
+    public static String generateRandomOrderCode() {
+        String uuid = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
+        return "order-" + uuid.substring(0, 3) + "-" + uuid.substring(3);
     }
 }

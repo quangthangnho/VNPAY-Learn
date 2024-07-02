@@ -24,6 +24,16 @@ public class RoleEntity extends BaseEntity implements Serializable {
     @Column(name = "col_description")
     private String description;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<UserRoleEntity> userRoles;
+
+    public void addUserRole(UserRoleEntity userRole) {
+        userRoles.add(userRole);
+        userRole.setRole(this);
+    }
+
+    public void removeUserRole(UserRoleEntity userRole) {
+        userRoles.remove(userRole);
+        userRole.setRole(null);
+    }
 }

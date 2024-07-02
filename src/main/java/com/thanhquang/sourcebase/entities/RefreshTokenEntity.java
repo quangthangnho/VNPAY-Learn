@@ -24,7 +24,7 @@ public class RefreshTokenEntity extends BaseEntity implements Serializable {
     @Column(name = "col_expired_at", nullable = false)
     private OffsetDateTime expiredAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "col_user_id", referencedColumnName = "id")
     private UserEntity user;
 }

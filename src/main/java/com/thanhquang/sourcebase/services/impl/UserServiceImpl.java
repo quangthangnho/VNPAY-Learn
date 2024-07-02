@@ -41,4 +41,11 @@ public class UserServiceImpl implements UserService {
     public UserEntity save(UserEntity user) {
         return this.userRepository.save(user);
     }
+
+    @Override
+    public UserEntity findById(Long id) throws BadRequestException {
+        return this.userRepository
+                .findById(id)
+                .orElseThrow(() -> new BadRequestException(AuthenticationErrors.USER_NOT_FOUND));
+    }
 }

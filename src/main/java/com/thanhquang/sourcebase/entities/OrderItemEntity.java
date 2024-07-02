@@ -1,6 +1,7 @@
 package com.thanhquang.sourcebase.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.*;
 
@@ -26,17 +27,28 @@ public class OrderItemEntity extends BaseEntityAudit implements Serializable {
     @Column(name = "col_total_price", nullable = false)
     private Long totalPrice;
 
-    @Column(name = "col_order_id", nullable = false)
-    private Integer orderId;
-
     @ManyToOne
-    @JoinColumn(name = "col_order_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "col_order_id")
     private OrderEntity order;
 
-    @Column(name = "col_product_id", nullable = false)
-    private Integer productId;
-
     @ManyToOne
-    @JoinColumn(name = "col_product_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "col_product_id")
     private ProductEntity product;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderItemEntity that = (OrderItemEntity) o;
+        return Objects.equals(this.getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 }
