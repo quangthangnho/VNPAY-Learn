@@ -49,6 +49,13 @@ public class OrderServiceImpl implements OrderService {
         return OrderMapper.INSTANCE.toOrderResDto(this.findOrderById(orderEntity.getId()));
     }
 
+    @Override
+    public OrderEntity checkOrder(String orderCode) throws BadRequestException {
+        return orderRepository
+                .findByOrderCode(orderCode)
+                .orElseThrow(() -> new BadRequestException(OrderErrors.ORDER_NOT_FOUND));
+    }
+
     private OrderEntity findOrderById(Long orderId) throws BadRequestException {
         return orderRepository
                 .findById(orderId)
