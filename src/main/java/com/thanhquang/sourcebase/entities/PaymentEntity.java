@@ -43,9 +43,11 @@ public class PaymentEntity extends BaseEntityAudit implements Serializable {
     private String paymentCode;
 
     @ManyToOne
+    @JoinColumn(name = "col_user_id", nullable = false)
     private UserEntity user;
 
     @ManyToOne
+    @JoinColumn(name = "col_order_id", nullable = false)
     private OrderEntity order;
 
     @Override

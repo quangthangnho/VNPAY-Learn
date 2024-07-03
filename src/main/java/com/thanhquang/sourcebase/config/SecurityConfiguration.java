@@ -35,6 +35,7 @@ public class SecurityConfiguration {
         "/swagger-ui/**",
         "/swagger-resources/**",
         "/api/v1/auth/**",
+        "api/v1/public/**",
     };
     private final UserDetailsService userDetailsService;
     private final HandlerExceptionResolver resolver;

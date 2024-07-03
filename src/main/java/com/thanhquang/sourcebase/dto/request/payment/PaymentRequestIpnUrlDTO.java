@@ -1,11 +1,15 @@
 package com.thanhquang.sourcebase.dto.request.payment;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 
 @Setter
 @Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentRequestIpnUrlDTO {
 
     @JsonProperty("vnp_Amount")
@@ -34,6 +38,9 @@ public class PaymentRequestIpnUrlDTO {
 
     @JsonProperty("vnp_TransactionNo")
     private String vnpTransactionNo;
+
+    @JsonProperty("vnp_TransactionStatus")
+    private String vnpTransactionStatus;
 
     @JsonProperty("vnp_TxnRef")
     private String vnpTxnRef;

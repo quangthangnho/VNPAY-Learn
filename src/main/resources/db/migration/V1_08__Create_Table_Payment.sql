@@ -13,7 +13,7 @@ CREATE TABLE tbl_payments
     col_amount         BIGINT                                                   NOT NULL CHECK (col_amount >= 0),
     col_payment_method enum_payment_method                                      NOT NULL,
     col_payment_status enum_payment_status         DEFAULT 'PENDING'            NOT NULL,
-    col_transaction_id TEXT UNIQUE                                              NOT NULL,
+    col_transaction_id TEXT UNIQUE                                              ,
     col_user_id        INT                                                      NOT NULL,
     col_payment_code   TEXT UNIQUE                                              NOT NULL,
     CONSTRAINT fk_orders

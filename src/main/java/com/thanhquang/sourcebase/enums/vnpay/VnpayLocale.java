@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum VnpayLocale {
-
-    VN("vn"), EN("en");
+    VN("vn"),
+    EN("en");
 
     final String value;
 

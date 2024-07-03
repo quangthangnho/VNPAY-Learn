@@ -1,9 +1,9 @@
 package com.thanhquang.sourcebase.utils;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 public class VnpayUtils {
 
@@ -36,7 +36,7 @@ public class VnpayUtils {
         Collections.sort(fieldNames);
         // create a buffer for the md5 input and add the secure secret first
         StringBuilder sb = new StringBuilder();
-        sb.append(key);
+//        sb.append(key);
         Iterator<String> itr = fieldNames.iterator();
         while (itr.hasNext()) {
             String fieldName = itr.next();

@@ -1,5 +1,6 @@
 package com.thanhquang.sourcebase.services.impl;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.thanhquang.sourcebase.entities.OrderEntity;
 import com.thanhquang.sourcebase.entities.OrderItemEntity;
 import com.thanhquang.sourcebase.entities.ProductEntity;
 import com.thanhquang.sourcebase.entities.UserEntity;
+import com.thanhquang.sourcebase.enums.order.OrderStatus;
 import com.thanhquang.sourcebase.exceptions.BadRequestException;
 import com.thanhquang.sourcebase.exceptions.error_code.impl.AuthenticationErrors;
 import com.thanhquang.sourcebase.exceptions.error_code.impl.OrderErrors;
@@ -54,6 +56,19 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository
                 .findByOrderCode(orderCode)
                 .orElseThrow(() -> new BadRequestException(OrderErrors.ORDER_NOT_FOUND));
+    }
+
+    @Override
+    public OrderEntity checkOrderByOrderCodeAndStatus(String orderCode, OrderStatus orderStatus)
+            throws BadRequestException {
+        return orderRepository
+                .findByOrderCodeAndOrderStatus(orderCode, orderStatus)
+                .orElse(null);
+    }
+
+    @Override
+    public List<OrderEntity> saves(List<OrderEntity> orderEntity) {
+        return orderRepository.saveAll(orderEntity);
     }
 
     private OrderEntity findOrderById(Long orderId) throws BadRequestException {

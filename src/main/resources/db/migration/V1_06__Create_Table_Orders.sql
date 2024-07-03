@@ -1,4 +1,4 @@
-CREATE TYPE order_status AS ENUM ('PENDING', 'PAID', 'SHIPPED', 'CANCELED', 'COMPLETED', 'REFUNDED');
+CREATE TYPE order_status AS ENUM ('PENDING', 'PAID', 'SHIPPED', 'CANCELED', 'COMPLETED', 'REFUNDED', 'FAILED');
 CREATE TABLE tbl_orders
 (
     id               SERIAL PRIMARY KEY,
@@ -10,7 +10,7 @@ CREATE TABLE tbl_orders
     col_deleted_by   TEXT,
     col_order_date   TIMESTAMP(6) WITH TIME ZONE                              NOT NULL,
     col_order_status order_status                DEFAULT 'PENDING'            NOT NULL,
-    col_order_total  BIGINT                                                   NOT NULL CHECK (col_order_total >= 0),
+    col_order_total  BIGINT                      DEFAULT 0                    NOT NULL CHECK (col_order_total >= 0),
     col_user_id      INT,
     col_order_code   TEXT UNIQUE                                              NOT NULL,
     CONSTRAINT fk_users
