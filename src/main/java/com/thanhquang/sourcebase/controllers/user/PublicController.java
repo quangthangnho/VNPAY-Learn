@@ -24,19 +24,19 @@ public class PublicController {
 
     @Operation(summary = "IPN URL")
     @GetMapping("/IPN")
-    public ApiResponse<VnpayResPINUrlDto> handleIpnUrl(@RequestParam(value = "vnp_Amount", required = false) String vnpAmount,
-                                                       @RequestParam(value = "vnp_BankCode", required = false) String vnpBankCode,
-                                                       @RequestParam(value = "vnp_BankTranNo", required = false) String vnpBankTranNo,
-                                                       @RequestParam(value = "vnp_CardType", required = false) String vnpCardType,
-                                                       @RequestParam(value = "vnp_OrderInfo", required = false) String vnpOrderInfo,
-                                                       @RequestParam(value = "vnp_PayDate", required = false) String vnpPayDate,
-                                                       @RequestParam(value = "vnp_ResponseCode", required = false) String vnpResponseCode,
-                                                       @RequestParam(value = "vnp_TmnCode", required = false) String vnpTmnCode,
-                                                       @RequestParam(value = "vnp_TransactionNo", required = false) String vnpTransactionNo,
-                                                       @RequestParam(value = "vnp_TransactionStatus", required = false) String vnpTransactionStatus,
-                                                       @RequestParam(value = "vnp_TxnRef", required = false) String vnpTxnRef,
+    public ApiResponse<VnpayResPINUrlDto> handleIpnUrl(@RequestParam(value = "vnp_Amount") String vnpAmount,
+                                                       @RequestParam(value = "vnp_BankCode") String vnpBankCode,
+                                                       @RequestParam(value = "vnp_BankTranNo") String vnpBankTranNo,
+                                                       @RequestParam(value = "vnp_CardType") String vnpCardType,
+                                                       @RequestParam(value = "vnp_OrderInfo") String vnpOrderInfo,
+                                                       @RequestParam(value = "vnp_PayDate") String vnpPayDate,
+                                                       @RequestParam(value = "vnp_ResponseCode") String vnpResponseCode,
+                                                       @RequestParam(value = "vnp_TmnCode") String vnpTmnCode,
+                                                       @RequestParam(value = "vnp_TransactionNo") String vnpTransactionNo,
+                                                       @RequestParam(value = "vnp_TransactionStatus") String vnpTransactionStatus,
+                                                       @RequestParam(value = "vnp_TxnRef") String vnpTxnRef,
                                                        @RequestParam(value = "vnp_SecureHashType", required = false) String vnpSecureHashType,
-                                                       @RequestParam(value = "vnp_SecureHash", required = false) String vnpSecureHash)
+                                                       @RequestParam(value = "vnp_SecureHash") String vnpSecureHash)
 
     {
         return ApiResponse.success(paymentService.handleIpnUrl(new PaymentRequestIpnUrlDTO(vnpAmount, vnpBankCode, vnpBankTranNo, vnpCardType, vnpOrderInfo, vnpPayDate, vnpResponseCode, vnpTmnCode, vnpTransactionNo, vnpTransactionStatus, vnpTxnRef, vnpSecureHashType, vnpSecureHash)));

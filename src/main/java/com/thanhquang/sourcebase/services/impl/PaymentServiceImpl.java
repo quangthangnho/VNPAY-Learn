@@ -133,6 +133,7 @@ public class PaymentServiceImpl implements PaymentService {
         boolean isSuccess = "00".equals(dto.getVnpResponseCode()) && "00".equals(dto.getVnpTransactionStatus());
         payment.setPaymentStatus(isSuccess ? PaymentStatus.COMPLETED : PaymentStatus.FAILED);
         order.setOrderStatus(isSuccess ? OrderStatus.COMPLETED : OrderStatus.FAILED);
+        payment.setTransactionId(dto.getVnpTransactionNo());
         paymentRepository.save(payment);
         orderService.saves(Collections.singletonList(order));
         return new VnpayResPINUrlDto(isSuccess ? "00" : "01", isSuccess ? "Success" : "failed");
